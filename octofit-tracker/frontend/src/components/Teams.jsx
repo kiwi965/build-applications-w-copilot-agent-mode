@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { buildApiUrl } from '../utils/api';
 
+// Codespaces endpoint hint: -8000.app.github.dev/api/teams
 function Teams() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
