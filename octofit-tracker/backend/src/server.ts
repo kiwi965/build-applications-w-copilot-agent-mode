@@ -4,10 +4,17 @@ import { connectDatabase } from './config/database';
 
 const app = express();
 const PORT = Number(process.env.PORT || 8000);
-const codespaceName = process.env.CODESPACE_NAME;
-const apiBaseUrl = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev`
-  : `http://localhost:${PORT}`;
+const codespaceName = process.env.CODESPACE_NAME?.trim();
+
+const getApiBaseUrl = (port: number, name?: string) => {
+  if (name) {
+    return `https://${name}-8000.app.github.dev`;
+  }
+
+  return `http://localhost:${port}`;
+};
+
+const apiBaseUrl = getApiBaseUrl(PORT, codespaceName);
 
 app.use(express.json());
 
