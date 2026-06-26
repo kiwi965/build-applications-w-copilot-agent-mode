@@ -1,11 +1,9 @@
-import mongoose from 'mongoose';
 import { Activity, LeaderboardEntry, Team, User, Workout } from '../models';
+import { connectDatabase, disconnectDatabase } from '../config/database';
 
 // Seed the octofit_db database with test data
 const seedDatabase = async () => {
-  const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
-
-  await mongoose.connect(uri);
+  await connectDatabase();
   console.log('Connected to MongoDB for seeding');
 
   await Promise.all([
@@ -128,7 +126,7 @@ const seedDatabase = async () => {
   ]);
 
   console.log('Seed data inserted successfully');
-  await mongoose.disconnect();
+  await disconnectDatabase();
 };
 
 seedDatabase().catch((error) => {
